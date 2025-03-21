@@ -1,0 +1,12 @@
+# Node.js dependencies
+housekeeper-backend/node_modules/
+housekeeper-app/node_modules/
+
+# Environment files
+housekeeperbackend/.env
+housekeeper-app/.env
+
+# Logs
+logs/
+*.log
+npm-debug.log*

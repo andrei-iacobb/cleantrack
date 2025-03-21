@@ -2,13 +2,11 @@ version: '3.8'
 
 services:
   backend:
-    build: ./backend
+    build: ./housekeeper-backend
     container_name: housekeeper-backend
     restart: always
     ports:
       - "3002:3002"
-    depends_on:
-      - db
     environment:
       - PORT=3002
       - DB_HOST=db
@@ -18,20 +16,26 @@ services:
       - DB_NAME=housekeeper
       - JWT_SECRET=mysecretkey
     volumes:
-      - ./backend:/app
-      - /app/node_modules
+      - ./housekeeper-backend:/app
+    depends_on:
+      - db
 
   mobile:
-    build: ./mobile
+    build: ./housekeeper-app
     container_name: housekeeper-mobile
     restart: always
     ports:
-      - "8081:8081"
+     - "8081:8081"
+     - "19000:19000"
+     - "19001:19001"
+     - "19002:19002"
+
     volumes:
-      - ./mobile:/app
-      - /app/node_modules
+      - ./housekeeper-app:/app
     stdin_open: true
     tty: true
+    depends_on:
+      - backend
 
   db:
     image: postgres:latest
